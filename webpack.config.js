@@ -4,9 +4,11 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist/assets'),
-    filename: 'bundle.js'
+    filename: 'main.js',
+    chunkFilename: "[name].bundle.js",
   },
   devServer: {
+    historyApiFallback: true,
     contentBase: path.resolve(__dirname, 'dist'),
     publicPath: '/assets/'
   },
@@ -17,7 +19,11 @@ module.exports = {
       use: {
         loader: 'babel-loader',
         options: {
-          presets: ['@babel/preset-env']
+          cacheDirectory: true,
+          presets: ['@babel/preset-env'],
+          plugins: [
+            "@babel/plugin-syntax-dynamic-import"
+          ],
         }
       }
     }]
